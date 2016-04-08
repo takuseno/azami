@@ -1,6 +1,6 @@
 dependencies:
   override:
-    npm install -g gulp
+    - npm install -g gulp
 
 test:
   pre:
