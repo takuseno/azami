@@ -27,11 +27,11 @@ export default class PullRequestApi extends BaseApi {
         }
       })
   }
-  
+
   getComments (parameters, callback) {
     this.validate(parameters)
     if (parameters.number === undefined) {
-      throw new Error('number is required');
+      throw new Error('number is required')
     }
     let token = parameters.token
     let owner = parameters.owner
