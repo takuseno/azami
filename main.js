@@ -1,22 +1,22 @@
-var app = require('app');
-var BrowserWindow = require('browser-window');
+var app = require('app')
+var BrowserWindow = require('browser-window')
 
-require('crash-reporter').start();
+require('crash-reporter').start()
 
-var mainWindow = null;
+var mainWindow = null
 
-app.on('window-all-closed', function() {
-    if (process.platform != 'darwin') {
-        app.quit();
-    }
-});
+app.on('window-all-closed', function () {
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+})
 
-app.on('ready', function() {
-    mainWindow = new BrowserWindow({width: 800, height: 600});
-    mainWindow.loadUrl('file://' + __dirname + '/index.html');
+app.on('ready', function () {
+  mainWindow = new BrowserWindow({width: 800, height: 600})
+  mainWindow.loadUrl(['file://', __dirname, '/index.html'].join(''))
 
-    mainWindow.on('closed', function() {
-        mainWindow = null;
-    });
-});
+  mainWindow.on('closed', function () {
+    mainWindow = null
+  })
+})
 
