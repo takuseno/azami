@@ -37,20 +37,20 @@ pullRequestStore.dispatchToken = AppDispatcher.register((action) => {
       pullRequestStore.emitChange()
       let globalStore = GlobalStore.getAll()
       let repository = RepositroyStore.getAll()[globalStore.activeRepositoryIndex]
-      AppActions.loadPullRequests(globalStore.token, repository)
+      AppActions.loadPullRequests(globalStore.preference.token, repository)
       break
 
     case AppConstants.LOAD_PULL_REQUEST_COMPLETED:
       store = action.pullRequests
       pullRequestStore.emitChange()
-      let token = GlobalStore.getAll().token
+      let token = GlobalStore.getAll().preference.token
       for (let pullRequest of store) {
         AppActions.loadComments(token, pullRequest)
       }
       break
 
     case AppConstants.LOAD_COMMENTS_COMPLETED:
-      let user = GlobalStore.getAll().user
+      let user = GlobalStore.getAll().preference.user
       if (action.pullRequest.user !== user) {
         let hasYourComments = !Immutable.Seq(action.comments)
           .filter((comment) => comment.user === user)

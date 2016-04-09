@@ -54,6 +54,20 @@ let actions = {
       actionType: AppConstants.ERROR,
       err: err
     })
+  },
+
+  loadPreference: (data) => {
+    AppDispatcher.dispatch({
+      actionType: AppConstants.LOAD_PREFERENCE,
+      data: data
+    })
+  },
+
+  changePreference: (data) => {
+    AppDispatcher.dispatch({
+      actionType: AppConstants.CHANGE_PREFERENCE,
+      data: data
+    })
   }
 }
 

@@ -7,9 +7,8 @@ import AppActions from '../actions/AppActions'
 let CHANGE_EVENT = 'change'
 
 let store = {
-  token: '',
-  user: '',
-  activeRepositoryIndex: 0
+  activeRepositoryIndex: 0,
+  preference: {}
 }
 
 class GlobalStore extends EventEmitter {
@@ -41,12 +40,23 @@ globalStore.dispatchToken = AppDispatcher.register((action) => {
       store.activeRepositoryIndex = action.index
       globalStore.emitChange()
       let repository = RepositoryStore.getAll()[action.index]
-      AppActions.loadPullRequests(store.token, repository)
+      AppActions.loadPullRequests(store.preference.token, repository)
       break
 
     case AppConstants.LOAD_REPOSITORIES_COMPLETED:
       AppDispatcher.waitFor([RepositoryStore.dispatchToken])
       store.activeRepositoryIndex = 0
+      globalStore.emitChange()
+      break
+
+    case AppConstants.LOAD_PREFERENCE:
+      store.preference = action.data
+      globalStore.preference = action.data
+      globalStore.emitChange()
+      break
+
+    case AppConstants.CHANGE_PREFERENCE:
+      store.preference = action.data
       globalStore.emitChange()
       break
 
