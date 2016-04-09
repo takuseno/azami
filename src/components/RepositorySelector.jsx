@@ -9,7 +9,7 @@ export default class RepositorySelector extends React.Component {
 
   render () {
     return (
-      <select value={this.props.checkedValue} onChange={this.changeListener.bind(this)}>
+      <select className="repositories" value={this.props.checkedValue} onChange={this.changeListener.bind(this)}>
         {this.props.repositories.map((repository, index) => {
           return (
             <option value={index}>{repository.name}</option>

@@ -8,7 +8,7 @@ indent_style = space
 [*.html]
 indent_size = 2
 
-[*.css]
+[*.scss]
 indent_size = 2
 
 [*.js]
