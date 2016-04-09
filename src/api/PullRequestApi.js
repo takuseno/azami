@@ -37,7 +37,7 @@ export default class PullRequestApi extends BaseApi {
     let owner = parameters.owner
     let repository = parameters.repository
     let number = parameters.number
-    SuperAgent.get(`https://api.github.com/respo/${owner}/${repository}/pulls/${number}/comments`)
+    SuperAgent.get(`https://api.github.com/repos/${owner}/${repository}/pulls/${number}/comments`)
       .query({access_token: token})
       .end((err, res) => {
         if (res.ok) {

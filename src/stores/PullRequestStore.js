@@ -1,3 +1,4 @@
+import * as Immutable from 'immutable'
 import AppDispatcher from '../dispatcher/AppDispatcher'
 import AppConstants from '../constants/AppConstants'
 import { EventEmitter } from 'events'
@@ -41,6 +42,25 @@ pullRequestStore.dispatchToken = AppDispatcher.register((action) => {
 
     case AppConstants.LOAD_PULL_REQUEST_COMPLETED:
       store = action.pullRequests
+      pullRequestStore.emitChange()
+      let token = GlobalStore.getAll().token
+      for (let pullRequest of store) {
+        AppActions.loadComments(token, pullRequest)
+      }
+      break
+
+    case AppConstants.LOAD_COMMENTS_COMPLETED:
+      let user = GlobalStore.getAll().user
+      if (action.pullRequest.user !== user) {
+        let hasYourComments = !Immutable.Seq(action.comments)
+          .filter((comment) => comment.user === user)
+          .isEmpty()
+        if (!hasYourComments) {
+          store = Immutable.Seq(store)
+            .filterNot((pullRequest) => pullRequest.id === action.pullRequest.id)
+            .toArray()
+        }
+      }
       pullRequestStore.emitChange()
       break
   }

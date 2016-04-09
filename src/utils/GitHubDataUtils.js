@@ -21,8 +21,11 @@ export default class GitHubDataUtils {
 
   static convertRawComment (comment) {
     return {
+      id: comment.id,
       position: comment.position,
       originalPosition: comment.original_position,
+      commitId: comment.commit_id,
+      originalCommitId: comment.original_commit_id,
       user: comment.user.login
     }
   }

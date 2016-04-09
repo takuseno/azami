@@ -22,7 +22,7 @@ let actions = {
       index: index
     })
     let token = GlobalStore.getAll().token
-    let repository = RepositoryStore.getAll()[actions.index]
+    let repository = RepositoryStore.getAll()[index]
     GitHubApiUtils.loadPullRequests(token, repository)
   },
 
@@ -41,9 +41,10 @@ let actions = {
     GitHubApiUtils.loadComments(token, pullRequest)
   },
 
-  loadCommentsCompleted: (comments) => {
+  loadCommentsCompleted: (pullRequest, comments) => {
     AppDispatcher.dispatch({
       actionType: AppConstants.LOAD_COMMENTS_COMPLETED,
+      pullRequest: pullRequest,
       comments: comments
     })
   },

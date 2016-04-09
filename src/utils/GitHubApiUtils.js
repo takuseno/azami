@@ -51,7 +51,7 @@ export default class GitHubApiUtils {
         let converted = Immutable.Seq(comments)
           .map(GitHubDataUtils.convertRawComment)
           .toArray()
-        AppActions.loadCommentsCompleted(converted)
+        AppActions.loadCommentsCompleted(pullRequest, converted)
       })
     } catch (e) {
       AppActions.error(e)
