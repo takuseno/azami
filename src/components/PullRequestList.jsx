@@ -5,7 +5,7 @@ import * as Shell from 'shell'
 export default class PullRequestList extends React.Component {
   createList (pullRequests) {
     return (
-      <ul className="pull-requests">
+      <ul className='pull-requests'>
         {pullRequests.map((pullRequest) => {
           let number = pullRequest.number
           let title = pullRequest.title
@@ -16,7 +16,7 @@ export default class PullRequestList extends React.Component {
       </ul>
     )
   }
-  
+
   clickListener (pullRequest) {
     let owner = pullRequest.owner
     let name = pullRequest.name
@@ -34,9 +34,9 @@ export default class PullRequestList extends React.Component {
       .toArray()
     return (
       <div>
-        <p className="divider">YOURS</p>
+        <p className='divider'>YOURS</p>
         {this.createList(yours)}
-        <p className="divider">THEIRS</p>
+        <p className='divider'>THEIRS</p>
         {this.createList(theirs)}
       </div>
     )
