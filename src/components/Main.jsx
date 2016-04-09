@@ -62,7 +62,7 @@ export default class Main extends React.Component {
     let repositories = this.state.repositories
     let pullRequests = this.state.pullRequests
     let checkedIndex = this.state.global.activeRepositoryIndex
-    let user = this.state.global.user
+    let user = this.state.global.preference.user
     return (
       <div>
         <div className='header'>
