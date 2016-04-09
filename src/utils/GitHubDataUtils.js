@@ -15,7 +15,8 @@ export default class GitHubDataUtils {
       number: pullRequest.number,
       title: pullRequest.title,
       state: pullRequest.state,
-      user: pullRequest.user.login
+      user: pullRequest.user.login,
+      comments: []
     }
   }
 

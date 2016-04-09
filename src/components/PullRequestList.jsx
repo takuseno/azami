@@ -29,15 +29,22 @@ export default class PullRequestList extends React.Component {
     let yours = Immutable.Seq(this.props.pullRequests)
       .filter((pullRequest) => this.props.user === pullRequest.user)
       .toArray()
-    let theirs = Immutable.Seq(this.props.pullRequests)
+    let reviewdByYou = Immutable.Seq(this.props.pullRequests)
       .filter((pullRequest) => this.props.user !== pullRequest.user)
+      .filter((pullRequest) => pullRequest.comments.length !== 0)
+      .toArray()
+    let notReviewd = Immutable.Seq(this.props.pullRequests)
+      .filter((pullRequest) => this.props.user !== pullRequest.user)
+      .filter((pullRequest) => pullRequest.comments.length === 0)
       .toArray()
     return (
       <div>
         <p className='divider'>YOURS</p>
         {this.createList(yours)}
-        <p className='divider'>THEIRS</p>
-        {this.createList(theirs)}
+        <p className='divider'>REVIEWED BY YOU</p>
+        {this.createList(reviewdByYou)}
+        <p className='divider'>NOT REVIEWED</p>
+        {this.createList(notReviewd)}
       </div>
     )
   }

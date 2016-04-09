@@ -51,11 +51,13 @@ pullRequestStore.dispatchToken = AppDispatcher.register((action) => {
 
     case AppConstants.LOAD_COMMENTS_COMPLETED:
       let user = GlobalStore.getAll().preference.user
+      let comments = action.comments
+      action.pullRequest.comments = comments
       if (action.pullRequest.user !== user) {
         let hasYourComments = !Immutable.Seq(action.comments)
           .filter((comment) => comment.user === user)
           .isEmpty()
-        if (!hasYourComments) {
+        if (!hasYourComments && comments.length !== 0) {
           store = Immutable.Seq(store)
             .filterNot((pullRequest) => pullRequest.id === action.pullRequest.id)
             .toArray()
