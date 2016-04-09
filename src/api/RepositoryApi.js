@@ -2,7 +2,7 @@ import * as SuperAgent from 'superagent'
 import BaseApi from './BaseApi'
 
 export default class RepositoryApi extends BaseApi {
-  getAll (parameters, callback) {
+  static getAll (parameters, callback) {
     this.validate(parameters)
     let token = parameters.token
     SuperAgent.get('https://api.github.com/user/repos')

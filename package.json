@@ -11,7 +11,7 @@
     "url": "git+https://github.com/takuseno/azami.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "takuseno",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/takuseno/azami/issues"
@@ -20,6 +20,7 @@
   "dependencies": {
     "flux": "^2.1.1",
     "gulp": "^3.9.1",
+    "immutable": "^3.7.6",
     "keymirror": "^0.1.1",
     "react": "^15.0.0",
     "react-dom": "^15.0.0",

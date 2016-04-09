@@ -1,5 +1,5 @@
 export default class BaseApi {
-  validate (parameters) {
+  static validate (parameters) {
     if (parameters.token === undefined) {
       throw new Error('token is required')
     }

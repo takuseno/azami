@@ -2,7 +2,7 @@ import * as SuperAgent from 'superagent'
 import BaseApi from './BaseApi'
 
 export default class PullRequestApi extends BaseApi {
-  validate (parameters) {
+  static validate (parameters) {
     super.validate(parameters)
     if (parameters.owner === undefined) {
       throw new Error('owner is required')
@@ -12,7 +12,7 @@ export default class PullRequestApi extends BaseApi {
     }
   }
 
-  getAll (parameters, callback) {
+  static getAll (parameters, callback) {
     this.validate(parameters)
     let token = parameters.token
     let owner = parameters.owner
@@ -28,7 +28,7 @@ export default class PullRequestApi extends BaseApi {
       })
   }
 
-  getComments (parameters, callback) {
+  static getComments (parameters, callback) {
     this.validate(parameters)
     if (parameters.number === undefined) {
       throw new Error('number is required')
