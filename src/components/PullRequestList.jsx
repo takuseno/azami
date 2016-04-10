@@ -7,10 +7,11 @@ export default class PullRequestList extends React.Component {
     return (
       <ul className='pull-requests'>
         {pullRequests.map((pullRequest) => {
+          let id = pullRequest.id
           let number = pullRequest.number
           let title = pullRequest.title
           return (
-            <li onClick={this.clickListener.bind(this, pullRequest)}>#{number} {title}</li>
+            <li key={id} onClick={this.clickListener.bind(this, pullRequest)}>#{number} {title}</li>
           )
         })}
       </ul>
