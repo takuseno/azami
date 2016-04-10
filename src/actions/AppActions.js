@@ -49,6 +49,18 @@ let actions = {
     })
   },
 
+  loadIssueComments: (token, pullRequest) => {
+    GitHubApiUtils.loadIssueComments(token, pullRequest)
+  },
+
+  loadIssueCommentsCompleted: (pullRequest, issueComments) => {
+    AppDispatcher.dispatch({
+      actionType: AppConstants.LOAD_ISSUE_COMMENTS_COMPLETED,
+      pullRequest: pullRequest,
+      issueComments: issueComments
+    })
+  },
+
   error: (err) => {
     AppDispatcher.dispatch({
       actionType: AppConstants.ERROR,

@@ -57,4 +57,23 @@ export default class GitHubApiUtils {
       AppActions.error(e)
     }
   }
+
+  static loadIssueComments (token, pullRequest) {
+    let parameters = {
+      token: token,
+      owner: pullRequest.owner,
+      repository: pullRequest.name,
+      number: pullRequest.number
+    }
+    try {
+      PullRequestApi.getIssueComments(parameters, (comments) => {
+        let converted = Immutable.Seq(comments)
+          .map(GitHubDataUtils.convertRawIssueComment)
+          .toArray()
+        AppActions.loadIssueCommentsCompleted(pullRequest, converted)
+      })
+    } catch (e) {
+      AppActions.error(e)
+    }
+  }
 }

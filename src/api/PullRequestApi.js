@@ -47,4 +47,24 @@ export default class PullRequestApi extends BaseApi {
         }
       })
   }
+
+  static getIssueComments (parameters, callback) {
+    this.validate(parameters)
+    if (parameters.number === undefined) {
+      throw new Error('number is required')
+    }
+    let token = parameters.token
+    let owner = parameters.owner
+    let repository = parameters.repository
+    let number = parameters.number
+    SuperAgent.get(`https://api.github.com/repos/${owner}/${repository}/issues/${number}/comments`)
+      .query({access_token: token})
+      .end((err, res) => {
+        if (res.ok) {
+          callback(res.body)
+        } else {
+          throw new Error(err)
+        }
+      })
+  }
 }

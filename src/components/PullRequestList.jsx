@@ -25,26 +25,50 @@ export default class PullRequestList extends React.Component {
     Shell.openExternal(url)
   }
 
+  hasUserComments (pullRequest, user) {
+    return !Immutable.Seq(pullRequest.comments)
+      .filter((comment) => user === comment.user)
+      .isEmpty()
+  }
+
+  hasUserIssueComments (pullRequest, user) {
+    return !Immutable.Seq(pullRequest.issueComments)
+      .filter((issueComment) => user === issueComment.user)
+      .isEmpty()
+  }
+
   render () {
-    let yours = Immutable.Seq(this.props.pullRequests)
-      .filter((pullRequest) => this.props.user === pullRequest.user)
+    let pullRequests = this.props.pullRequests
+    let user = this.props.user
+    let yours = Immutable.Seq(pullRequests)
+      .filter((pullRequest) => user === pullRequest.user)
       .toArray()
-    let reviewdByYou = Immutable.Seq(this.props.pullRequests)
-      .filter((pullRequest) => this.props.user !== pullRequest.user)
-      .filter((pullRequest) => pullRequest.comments.length !== 0)
+
+    let reviewedByYou = Immutable.Seq(pullRequests)
+      .filter((pullRequest) => user !== pullRequest.user)
+      .filter((pullRequest) => {
+        return this.hasUserComments(pullRequest, user) || this.hasUserIssueComments(pullRequest, user)
+      })
       .toArray()
-    let notReviewd = Immutable.Seq(this.props.pullRequests)
-      .filter((pullRequest) => this.props.user !== pullRequest.user)
+
+    let notReviewed = Immutable.Seq(this.props.pullRequests)
+      .filter((pullRequest) => user !== pullRequest.user)
       .filter((pullRequest) => pullRequest.comments.length === 0)
+      .filter((pullRequest) => {
+        return Immutable.Seq(pullRequest.issueComments)
+          .filter((issueComment) => pullRequest.user !== issueComment.user)
+          .isEmpty()
+      })
       .toArray()
+
     return (
       <div>
         <p className='divider'>YOURS</p>
         {this.createList(yours)}
         <p className='divider'>REVIEWED BY YOU</p>
-        {this.createList(reviewdByYou)}
+        {this.createList(reviewedByYou)}
         <p className='divider'>NOT REVIEWED</p>
-        {this.createList(notReviewd)}
+        {this.createList(notReviewed)}
       </div>
     )
   }

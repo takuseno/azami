@@ -50,11 +50,6 @@ globalStore.dispatchToken = AppDispatcher.register((action) => {
       break
 
     case AppConstants.LOAD_PREFERENCE:
-      store.preference = action.data
-      globalStore.preference = action.data
-      globalStore.emitChange()
-      break
-
     case AppConstants.CHANGE_PREFERENCE:
       store.preference = action.data
       globalStore.emitChange()

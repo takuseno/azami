@@ -1,4 +1,3 @@
-import * as Immutable from 'immutable'
 import AppDispatcher from '../dispatcher/AppDispatcher'
 import AppConstants from '../constants/AppConstants'
 import { EventEmitter } from 'events'
@@ -30,39 +29,37 @@ class PullRequestStore extends EventEmitter {
 
 let pullRequestStore = new PullRequestStore()
 pullRequestStore.dispatchToken = AppDispatcher.register((action) => {
+  let globalStore = GlobalStore.getAll()
+  let token = globalStore.preference.token
+  let activeRepositoryIndex = globalStore.activeRepositoryIndex
+
   switch (action.actionType) {
     case AppConstants.LOAD_REPOSITORIES_COMPLETED:
       AppDispatcher.waitFor([RepositroyStore.dispatchToken])
       store = []
       pullRequestStore.emitChange()
-      let globalStore = GlobalStore.getAll()
-      let repository = RepositroyStore.getAll()[globalStore.activeRepositoryIndex]
-      AppActions.loadPullRequests(globalStore.preference.token, repository)
+      let repository = RepositroyStore.getAll()[activeRepositoryIndex]
+      AppActions.loadPullRequests(token, repository)
       break
 
     case AppConstants.LOAD_PULL_REQUEST_COMPLETED:
       store = action.pullRequests
       pullRequestStore.emitChange()
-      let token = GlobalStore.getAll().preference.token
       for (let pullRequest of store) {
         AppActions.loadComments(token, pullRequest)
+        AppActions.loadIssueComments(token, pullRequest)
       }
       break
 
     case AppConstants.LOAD_COMMENTS_COMPLETED:
-      let user = GlobalStore.getAll().preference.user
       let comments = action.comments
       action.pullRequest.comments = comments
-      if (action.pullRequest.user !== user) {
-        let hasYourComments = !Immutable.Seq(action.comments)
-          .filter((comment) => comment.user === user)
-          .isEmpty()
-        if (!hasYourComments && comments.length !== 0) {
-          store = Immutable.Seq(store)
-            .filterNot((pullRequest) => pullRequest.id === action.pullRequest.id)
-            .toArray()
-        }
-      }
+      pullRequestStore.emitChange()
+      break
+
+    case AppConstants.LOAD_ISSUE_COMMENTS_COMPLETED:
+      let issueComments = action.issueComments
+      action.pullRequest.issueComments = issueComments
       pullRequestStore.emitChange()
       break
   }

@@ -16,7 +16,8 @@ export default class GitHubDataUtils {
       title: pullRequest.title,
       state: pullRequest.state,
       user: pullRequest.user.login,
-      comments: []
+      comments: [],
+      issueComments: []
     }
   }
 
@@ -28,6 +29,14 @@ export default class GitHubDataUtils {
       commitId: comment.commit_id,
       originalCommitId: comment.original_commit_id,
       user: comment.user.login
+    }
+  }
+
+  static convertRawIssueComment (issueComment) {
+    return {
+      id: issueComment.id,
+      user: issueComment.user.login,
+      body: issueComment.body
     }
   }
 }
