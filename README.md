@@ -17,3 +17,7 @@ $ gulp compile
 $ gulp sass
 $ electron .
 ```
+
+## License
+This repository is MIT-licensed.
+
