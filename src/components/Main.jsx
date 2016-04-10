@@ -53,7 +53,7 @@ export default class Main extends React.Component {
     // temporary implementation
     let toggle = this.state.settingToggle
     this.setState({settingToggle: toggle === 1 ? 0 : 1})
-    if (toggle === 0) {
+    if (toggle === 1) {
       AppActions.loadRepositories(this.state.global.preference.token)
     }
   }

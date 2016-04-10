@@ -40,10 +40,10 @@ export default class Preference extends React.Component {
     let token = this.state.token
     let user = this.state.user
     return (
-      <div>
-        <p>API TOKEN</p>
+      <div className='preference'>
+        <p className='divider'>API TOKEN</p>
         <input id='token' value={token} onChange={this.changeListener.bind(this)}/>
-        <p>USER NAME</p>
+        <p className='divider'>USER NAME</p>
         <input id='user' value={user} onChange={this.changeListener.bind(this)}/>
       </div>
     )
