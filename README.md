@@ -7,3 +7,13 @@ Simple Pull Request Manager powered by Electron
 
 ## Coding Standard
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
+
+## Build
+
+```shell
+$ npm install -g gulp electron-prebuilt
+$ npm install
+$ gulp compile
+$ gulp sass
+$ electron .
+```
