@@ -64,17 +64,27 @@ export default class Main extends React.Component {
     let checkedIndex = this.state.global.activeRepositoryIndex
     let user = this.state.global.preference.user
     return (
-      <div>
-        <div className='header'>
-          <img className='settings-button' src='./resources/ic_settings_black_24px.svg' onClick={this.clickListener.bind(this)}/>
-        </div>
-        {this.state.settingToggle === 0
-          ? <div>
-            <RepositorySelector repositories={repositories} checkedValue={checkedIndex}/>
-            <PullRequestList pullRequests={pullRequests} user={user}/>
+      <div className='window'>
+        <header className='toolbar toolbar-header'>
+          <div className='toolbar-actions'>
+            <button className='btn btn-default pull-right' onClick={this.clickListener.bind(this)}>
+              <span className='icon icon-cog'></span>
+            </button>
           </div>
-          : <Preference/>
-        }
+        </header>
+        <div className='window-content'>
+          <div className='pane-group'>
+            {this.state.settingToggle === 0
+              ? <div className='pane'>
+                <RepositorySelector repositories={repositories} checkedValue={checkedIndex}/>
+                <PullRequestList pullRequests={pullRequests} user={user}/>
+              </div>
+              : <div className='pane'>
+                <Preference/>
+              </div>
+            }
+          </div>
+        </div>
       </div>
     )
   }

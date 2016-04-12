@@ -41,10 +41,14 @@ export default class Preference extends React.Component {
     let user = this.state.user
     return (
       <div className='preference'>
-        <p className='divider'>API TOKEN</p>
-        <input id='token' value={token} onChange={this.changeListener.bind(this)}/>
-        <p className='divider'>USER NAME</p>
-        <input id='user' value={user} onChange={this.changeListener.bind(this)}/>
+        <div className='form-group'>
+          <label>API Token</label>
+          <input id='token' className='form-control' value={token} onChange={this.changeListener.bind(this)}/>
+        </div>
+        <div className='form-group'>
+          <label>User Name</label>
+          <input id='user' className='form-control' value={user} onChange={this.changeListener.bind(this)}/>
+        </div>
       </div>
     )
   }
