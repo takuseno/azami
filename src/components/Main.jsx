@@ -2,6 +2,7 @@ import * as React from 'react'
 import * as Storage from 'electron-json-storage'
 import RepositorySelector from './RepositorySelector'
 import PullRequestList from './PullRequestList'
+import Header from './Header'
 import GlobalStore from '../stores/GlobalStore'
 import RepositoryStore from '../stores/RepositoryStore'
 import PullRequestStore from '../stores/PullRequestStore'
@@ -33,8 +34,7 @@ export default class Main extends React.Component {
     this.state = {
       global: GlobalStore.getAll(),
       repositories: [],
-      pullRequests: [],
-      settingToggle: 0
+      pullRequests: []
     }
   }
 
@@ -49,32 +49,18 @@ export default class Main extends React.Component {
     })
   }
 
-  clickListener () {
-    // temporary implementation
-    let toggle = this.state.settingToggle
-    this.setState({settingToggle: toggle === 1 ? 0 : 1})
-    if (toggle === 1) {
-      AppActions.loadRepositories(this.state.global.preference.token)
-    }
-  }
-
   render () {
     let repositories = this.state.repositories
     let pullRequests = this.state.pullRequests
     let checkedIndex = this.state.global.activeRepositoryIndex
     let user = this.state.global.preference.user
+    let currentDisplay = this.state.global.currentDisplay
     return (
       <div className='window'>
-        <header className='toolbar toolbar-header'>
-          <div className='toolbar-actions'>
-            <button className='btn btn-default pull-right' onClick={this.clickListener.bind(this)}>
-              <span className='icon icon-cog'></span>
-            </button>
-          </div>
-        </header>
+        <Header/>
         <div className='window-content'>
           <div className='pane-group'>
-            {this.state.settingToggle === 0
+            {currentDisplay === 'main'
               ? <div className='pane'>
                 <RepositorySelector repositories={repositories} checkedValue={checkedIndex}/>
                 <PullRequestList pullRequests={pullRequests} user={user}/>
