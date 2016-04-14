@@ -3,15 +3,22 @@ import * as Immutable from 'immutable'
 import * as Shell from 'shell'
 
 export default class PullRequestList extends React.Component {
-  createList (pullRequests) {
+  createList (pullRequests, title) {
     return (
-      <ul className='pull-requests'>
+      <ul className='list-group'>
+        <li className='list-group-header'>
+          <strong>{title}</strong>
+        </li>
         {pullRequests.map((pullRequest) => {
           let id = pullRequest.id
           let number = pullRequest.number
           let title = pullRequest.title
           return (
-            <li key={id} onClick={this.clickListener.bind(this, pullRequest)}>#{number} {title}</li>
+            <li key={id} className='list-group-item' onClick={this.clickListener.bind(this, pullRequest)}>
+              <div className='media-body'>
+                #{number} {title}
+              </div>
+            </li>
           )
         })}
       </ul>
@@ -64,12 +71,9 @@ export default class PullRequestList extends React.Component {
 
     return (
       <div>
-        <p className='divider'>YOURS</p>
-        {this.createList(yours)}
-        <p className='divider'>REVIEWED BY YOU</p>
-        {this.createList(reviewedByYou)}
-        <p className='divider'>NOT REVIEWED</p>
-        {this.createList(notReviewed)}
+        {this.createList(yours, 'Yours')}
+        {this.createList(reviewedByYou, 'Reviewed By You')}
+        {this.createList(notReviewed, 'Not Reviewed')}
       </div>
     )
   }

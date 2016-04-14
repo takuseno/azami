@@ -8,5 +8,6 @@ export default KeyMirror({
   LOAD_ISSUE_COMMENTS_COMPLETED: null,
   ERROR: null,
   LOAD_PREFERENCE: null,
-  CHANGE_PREFERENCE: null
+  CHANGE_PREFERENCE: null,
+  CLICK_PREFERENCE_BUTTON: null
 })

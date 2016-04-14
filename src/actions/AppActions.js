@@ -80,6 +80,12 @@ let actions = {
       actionType: AppConstants.CHANGE_PREFERENCE,
       data: data
     })
+  },
+
+  clickPreferenceButton: () => {
+    AppDispatcher.dispatch({
+      actionType: AppConstants.CLICK_PREFERENCE_BUTTON
+    })
   }
 }
 

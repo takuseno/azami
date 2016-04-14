@@ -7,6 +7,7 @@ import AppActions from '../actions/AppActions'
 let CHANGE_EVENT = 'change'
 
 let store = {
+  currentDisplay: 'main',
   activeRepositoryIndex: 0,
   preference: {}
 }
@@ -52,6 +53,15 @@ globalStore.dispatchToken = AppDispatcher.register((action) => {
     case AppConstants.LOAD_PREFERENCE:
     case AppConstants.CHANGE_PREFERENCE:
       store.preference = action.data
+      globalStore.emitChange()
+      break
+
+    case AppConstants.CLICK_PREFERENCE_BUTTON:
+      if (store.currentDisplay === 'main') {
+        store.currentDisplay = 'preference'
+      } else {
+        store.currentDisplay = 'main'
+      }
       globalStore.emitChange()
       break
 

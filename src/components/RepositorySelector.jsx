@@ -9,13 +9,15 @@ export default class RepositorySelector extends React.Component {
 
   render () {
     return (
-      <select className='repositories' value={this.props.checkedValue} onChange={this.changeListener.bind(this)}>
-        {this.props.repositories.map((repository, index) => {
-          return (
-            <option key={repository.id} value={index}>{repository.name}</option>
-          )
-        })}
-      </select>
+      <div className='preference'>
+        <select className='form-control' value={this.props.checkedValue} onChange={this.changeListener.bind(this)}>
+          {this.props.repositories.map((repository, index) => {
+            return (
+              <option key={repository.id} value={index}>{repository.name}</option>
+            )
+          })}
+        </select>
+      </div>
     )
   }
 }
