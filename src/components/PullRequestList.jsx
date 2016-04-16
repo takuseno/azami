@@ -13,10 +13,14 @@ export default class PullRequestList extends React.Component {
           let id = pullRequest.id
           let number = pullRequest.number
           let title = pullRequest.title
+          let iconType = 'icon-dot'
+          if (this.hasNewCommits(pullRequest)) {
+            iconType = 'icon-plus'
+          }
           return (
             <li key={id} className='list-group-item' onClick={this.clickListener.bind(this, pullRequest)}>
               <div className='media-body'>
-                #{number} {title}
+                <span className={`icon ${iconType}`}/> #{number} {title}
               </div>
             </li>
           )
@@ -42,6 +46,29 @@ export default class PullRequestList extends React.Component {
   hasUserIssueComments (pullRequest, user) {
     return !Immutable.Seq(pullRequest.issueComments)
       .filter((issueComment) => user === issueComment.user)
+      .isEmpty()
+  }
+
+  hasNewCommits (pullRequest) {
+    let latestComment = Immutable.Seq(pullRequest.comments)
+      .maxBy((comment) => comment.date)
+    let latestIssueComment = Immutable.Seq(pullRequest.issueComments)
+      .maxBy((issueComment) => issueComment.date)
+    return !Immutable.Seq(pullRequest.commits)
+      .filter((commit) => {
+        if (latestComment === undefined) {
+          return true
+        } else {
+          return commit.date > latestComment.date
+        }
+      })
+      .filter((commit) => {
+        if (latestIssueComment === undefined) {
+          return true
+        } else {
+          return commit.date > latestIssueComment.date
+        }
+      })
       .isEmpty()
   }
 

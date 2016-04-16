@@ -48,6 +48,7 @@ pullRequestStore.dispatchToken = AppDispatcher.register((action) => {
       for (let pullRequest of store) {
         AppActions.loadComments(token, pullRequest)
         AppActions.loadIssueComments(token, pullRequest)
+        AppActions.loadCommits(token, pullRequest)
       }
       break
 
@@ -60,6 +61,12 @@ pullRequestStore.dispatchToken = AppDispatcher.register((action) => {
     case AppConstants.LOAD_ISSUE_COMMENTS_COMPLETED:
       let issueComments = action.issueComments
       action.pullRequest.issueComments = issueComments
+      pullRequestStore.emitChange()
+      break
+
+    case AppConstants.LOAD_COMMITS_COMPLETED:
+      let commits = action.commits
+      action.pullRequest.commits = commits
       pullRequestStore.emitChange()
       break
   }

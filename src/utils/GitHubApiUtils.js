@@ -76,4 +76,23 @@ export default class GitHubApiUtils {
       AppActions.error(e)
     }
   }
+
+  static loadCommits (token, pullRequest) {
+    let parameters = {
+      token: token,
+      owner: pullRequest.owner,
+      repository: pullRequest.name,
+      number: pullRequest.number
+    }
+    try {
+      PullRequestApi.getCommits(parameters, (commits) => {
+        let converted = Immutable.Seq(commits)
+          .map(GitHubDataUtils.convertRawCommit)
+          .toArray()
+        AppActions.loadCommitsCompleted(pullRequest, converted)
+      })
+    } catch (e) {
+      AppActions.error(e)
+    }
+  }
 }

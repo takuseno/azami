@@ -61,6 +61,18 @@ let actions = {
     })
   },
 
+  loadCommits: (token, pullRequest) => {
+    GitHubApiUtils.loadCommits(token, pullRequest)
+  },
+
+  loadCommitsCompleted: (pullRequest, commits) => {
+    AppDispatcher.dispatch({
+      actionType: AppConstants.LOAD_COMMITS_COMPLETED,
+      pullRequest: pullRequest,
+      commits: commits
+    })
+  },
+
   error: (err) => {
     AppDispatcher.dispatch({
       actionType: AppConstants.ERROR,
