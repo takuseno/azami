@@ -17,7 +17,8 @@ export default class GitHubDataUtils {
       state: pullRequest.state,
       user: pullRequest.user.login,
       comments: [],
-      issueComments: []
+      issueComments: [],
+      commits: []
     }
   }
 
@@ -28,7 +29,8 @@ export default class GitHubDataUtils {
       originalPosition: comment.original_position,
       commitId: comment.commit_id,
       originalCommitId: comment.original_commit_id,
-      user: comment.user.login
+      user: comment.user.login,
+      date: comment.created_at
     }
   }
 
@@ -36,7 +38,15 @@ export default class GitHubDataUtils {
     return {
       id: issueComment.id,
       user: issueComment.user.login,
-      body: issueComment.body
+      body: issueComment.body,
+      date: issueComment.created_at
+    }
+  }
+
+  static convertRawCommit (commit) {
+    return {
+      id: commit.sha,
+      date: commit.commit.committer.date
     }
   }
 }
