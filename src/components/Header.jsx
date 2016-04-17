@@ -8,14 +8,11 @@ export default class Header extends React.Component {
 
   render () {
     return (
-      <header className='toolbar toolbar-header'>
-        <h1 className='title'>azami</h1>
-        <div className='toolbar-actions'>
-          <button className='btn btn-default pull-right' onClick={this.clickListener}>
-            <span className='icon icon-cog'></span>
-          </button>
-        </div>
-      </header>
+      <div className='header'>
+        <button className='btn btn-default pull-right' onClick={this.clickListener}>
+          <span className='icon icon-cog'></span>
+        </button>
+      </div>
     )
   }
 }
