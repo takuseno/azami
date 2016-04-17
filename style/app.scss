@@ -1,5 +1,9 @@
 @import "colors";
 
+.header {
+  margin: 6px !important;
+}
+
 ul {
   li {
     width: 100%;
@@ -23,6 +27,10 @@ ul {
 
 .preference {
   padding: 6px;
+}
+
+.main {
+  margin-top: 6px !important;
 }
 
 .repositories {

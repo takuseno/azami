@@ -57,18 +57,18 @@ export default class Main extends React.Component {
     let currentDisplay = this.state.global.currentDisplay
     return (
       <div className='window'>
-        <Header/>
         <div className='window-content'>
           <div className='pane-group'>
-            {currentDisplay === 'main'
-              ? <div className='pane'>
-                <RepositorySelector repositories={repositories} checkedValue={checkedIndex}/>
-                <PullRequestList pullRequests={pullRequests} user={user}/>
-              </div>
-              : <div className='pane'>
-                <Preference/>
-              </div>
-            }
+            <Header/>
+            <div className='pane'>
+              {currentDisplay === 'main'
+                ? <div className='main'>
+                  <RepositorySelector repositories={repositories} checkedValue={checkedIndex}/>
+                  <PullRequestList pullRequests={pullRequests} user={user}/>
+                </div>
+                : <Preference/>
+              }
+            </div>
           </div>
         </div>
       </div>
