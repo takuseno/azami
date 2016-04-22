@@ -10,12 +10,13 @@ export default class GitHubApiUtils {
       token: token
     }
     try {
-      RepositoryApi.getAll(parameters, (repositories) => {
-        let converted = Immutable.Seq(repositories)
-          .map(GitHubDataUtils.convertRawRepository)
-          .toArray()
-        AppActions.loadRepositoriesCompleted(converted)
-      })
+      RepositoryApi.getAll(parameters)
+        .then((repositories) => {
+          let converted = Immutable.Seq(repositories)
+            .map(GitHubDataUtils.convertRawRepository)
+            .toArray()
+          AppActions.loadRepositoriesCompleted(converted)
+        })
     } catch (e) {
       AppActions.error(e)
     }
@@ -28,12 +29,13 @@ export default class GitHubApiUtils {
       repository: repository.name
     }
     try {
-      PullRequestApi.getAll(parameters, (pullRequests) => {
-        let converted = Immutable.Seq(pullRequests)
-          .map(GitHubDataUtils.convertRawPullRequest)
-          .toArray()
-        AppActions.loadPullRequestsCompleted(converted)
-      })
+      PullRequestApi.getAll(parameters)
+        .then((pullRequests) => {
+          let converted = Immutable.Seq(pullRequests)
+            .map(GitHubDataUtils.convertRawPullRequest)
+            .toArray()
+          AppActions.loadPullRequestsCompleted(converted)
+        })
     } catch (e) {
       AppActions.error(e)
     }
@@ -47,12 +49,13 @@ export default class GitHubApiUtils {
       number: pullRequest.number
     }
     try {
-      PullRequestApi.getComments(parameters, (comments) => {
-        let converted = Immutable.Seq(comments)
-          .map(GitHubDataUtils.convertRawComment)
-          .toArray()
-        AppActions.loadCommentsCompleted(pullRequest, converted)
-      })
+      PullRequestApi.getComments(parameters)
+        .then((comments) => {
+          let converted = Immutable.Seq(comments)
+            .map(GitHubDataUtils.convertRawComment)
+            .toArray()
+          AppActions.loadCommentsCompleted(pullRequest, converted)
+        })
     } catch (e) {
       AppActions.error(e)
     }
@@ -66,12 +69,13 @@ export default class GitHubApiUtils {
       number: pullRequest.number
     }
     try {
-      PullRequestApi.getIssueComments(parameters, (comments) => {
-        let converted = Immutable.Seq(comments)
-          .map(GitHubDataUtils.convertRawIssueComment)
-          .toArray()
-        AppActions.loadIssueCommentsCompleted(pullRequest, converted)
-      })
+      PullRequestApi.getIssueComments(parameters)
+        .then((comments) => {
+          let converted = Immutable.Seq(comments)
+            .map(GitHubDataUtils.convertRawIssueComment)
+            .toArray()
+          AppActions.loadIssueCommentsCompleted(pullRequest, converted)
+        })
     } catch (e) {
       AppActions.error(e)
     }
@@ -85,12 +89,13 @@ export default class GitHubApiUtils {
       number: pullRequest.number
     }
     try {
-      PullRequestApi.getCommits(parameters, (commits) => {
-        let converted = Immutable.Seq(commits)
-          .map(GitHubDataUtils.convertRawCommit)
-          .toArray()
-        AppActions.loadCommitsCompleted(pullRequest, converted)
-      })
+      PullRequestApi.getCommits(parameters)
+        .then((commits) => {
+          let converted = Immutable.Seq(commits)
+            .map(GitHubDataUtils.convertRawCommit)
+            .toArray()
+          AppActions.loadCommitsCompleted(pullRequest, converted)
+        })
     } catch (e) {
       AppActions.error(e)
     }
