@@ -23,9 +23,9 @@ export default class Preference extends React.Component {
   }
 
   changeListener (e) {
-    let key = e.target.id
-    let value = e.target.value
-    let config = this.state
+    const key = e.target.id
+    const value = e.target.value
+    const config = this.state
     config[key] = value
     Storage.set('config', config, (error) => {
       if (error) {
@@ -37,8 +37,8 @@ export default class Preference extends React.Component {
   }
 
   render () {
-    let token = this.state.token
-    let user = this.state.user
+    const token = this.state.token
+    const user = this.state.user
     return (
       <div className='preference'>
         <div className='form-group'>

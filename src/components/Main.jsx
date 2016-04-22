@@ -50,11 +50,11 @@ export default class Main extends React.Component {
   }
 
   render () {
-    let repositories = this.state.repositories
-    let pullRequests = this.state.pullRequests
-    let checkedIndex = this.state.global.activeRepositoryIndex
-    let user = this.state.global.preference.user
-    let currentDisplay = this.state.global.currentDisplay
+    const repositories = this.state.repositories
+    const pullRequests = this.state.pullRequests
+    const checkedIndex = this.state.global.activeRepositoryIndex
+    const user = this.state.global.preference.user
+    const currentDisplay = this.state.global.currentDisplay
     return (
       <div className='window'>
         <div className='window-content'>

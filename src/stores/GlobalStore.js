@@ -40,7 +40,7 @@ globalStore.dispatchToken = AppDispatcher.register((action) => {
     case AppConstants.CHANGE_REPOSITORY:
       store.activeRepositoryIndex = action.index
       globalStore.emitChange()
-      let repository = RepositoryStore.getAll()[action.index]
+      const repository = RepositoryStore.getAll()[action.index]
       AppActions.loadPullRequests(store.preference.token, repository)
       break
 

@@ -6,13 +6,13 @@ import PullRequestApi from '../api/PullRequestApi'
 
 export default class GitHubApiUtils {
   static loadRepositories (token) {
-    let parameters = {
+    const parameters = {
       token: token
     }
     try {
       RepositoryApi.getAll(parameters)
         .then((repositories) => {
-          let converted = Immutable.Seq(repositories)
+          const converted = Immutable.Seq(repositories)
             .map(GitHubDataUtils.convertRawRepository)
             .toArray()
           AppActions.loadRepositoriesCompleted(converted)
@@ -23,7 +23,7 @@ export default class GitHubApiUtils {
   }
 
   static loadPullRequests (token, repository) {
-    let parameters = {
+    const parameters = {
       token: token,
       owner: repository.owner,
       repository: repository.name
@@ -31,7 +31,7 @@ export default class GitHubApiUtils {
     try {
       PullRequestApi.getAll(parameters)
         .then((pullRequests) => {
-          let converted = Immutable.Seq(pullRequests)
+          const converted = Immutable.Seq(pullRequests)
             .map(GitHubDataUtils.convertRawPullRequest)
             .toArray()
           AppActions.loadPullRequestsCompleted(converted)
@@ -42,7 +42,7 @@ export default class GitHubApiUtils {
   }
 
   static loadComments (token, pullRequest) {
-    let parameters = {
+    const parameters = {
       token: token,
       owner: pullRequest.owner,
       repository: pullRequest.name,
@@ -51,7 +51,7 @@ export default class GitHubApiUtils {
     try {
       PullRequestApi.getComments(parameters)
         .then((comments) => {
-          let converted = Immutable.Seq(comments)
+          const converted = Immutable.Seq(comments)
             .map(GitHubDataUtils.convertRawComment)
             .toArray()
           AppActions.loadCommentsCompleted(pullRequest, converted)
@@ -62,7 +62,7 @@ export default class GitHubApiUtils {
   }
 
   static loadIssueComments (token, pullRequest) {
-    let parameters = {
+    const parameters = {
       token: token,
       owner: pullRequest.owner,
       repository: pullRequest.name,
@@ -71,7 +71,7 @@ export default class GitHubApiUtils {
     try {
       PullRequestApi.getIssueComments(parameters)
         .then((comments) => {
-          let converted = Immutable.Seq(comments)
+          const converted = Immutable.Seq(comments)
             .map(GitHubDataUtils.convertRawIssueComment)
             .toArray()
           AppActions.loadIssueCommentsCompleted(pullRequest, converted)
@@ -82,7 +82,7 @@ export default class GitHubApiUtils {
   }
 
   static loadCommits (token, pullRequest) {
-    let parameters = {
+    const parameters = {
       token: token,
       owner: pullRequest.owner,
       repository: pullRequest.name,
@@ -91,7 +91,7 @@ export default class GitHubApiUtils {
     try {
       PullRequestApi.getCommits(parameters)
         .then((commits) => {
-          let converted = Immutable.Seq(commits)
+          const converted = Immutable.Seq(commits)
             .map(GitHubDataUtils.convertRawCommit)
             .toArray()
           AppActions.loadCommitsCompleted(pullRequest, converted)
