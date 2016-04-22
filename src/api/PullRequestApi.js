@@ -12,23 +12,25 @@ export default class PullRequestApi extends BaseApi {
     }
   }
 
-  static getAll (parameters, callback) {
+  static getAll (parameters) {
     this.validate(parameters)
     let token = parameters.token
     let owner = parameters.owner
     let repository = parameters.repository
-    SuperAgent.get(`https://api.github.com/repos/${owner}/${repository}/pulls`)
-      .query({access_token: token})
-      .end((err, res) => {
-        if (res.ok) {
-          callback(res.body)
-        } else {
-          throw new Error(err)
-        }
-      })
+    return new Promise((resolve, reject) => {
+      SuperAgent.get(`https://api.github.com/repos/${owner}/${repository}/pulls`)
+        .query({access_token: token})
+        .end((err, res) => {
+          if (res.ok) {
+            resolve(res.body)
+          } else {
+            reject(err)
+          }
+        })
+    })
   }
 
-  static getComments (parameters, callback) {
+  static getComments (parameters) {
     this.validate(parameters)
     if (parameters.number === undefined) {
       throw new Error('number is required')
@@ -37,18 +39,20 @@ export default class PullRequestApi extends BaseApi {
     let owner = parameters.owner
     let repository = parameters.repository
     let number = parameters.number
-    SuperAgent.get(`https://api.github.com/repos/${owner}/${repository}/pulls/${number}/comments`)
-      .query({access_token: token})
-      .end((err, res) => {
-        if (res.ok) {
-          callback(res.body)
-        } else {
-          throw new Error(err)
-        }
-      })
+    return new Promise((resolve, reject) => {
+      SuperAgent.get(`https://api.github.com/repos/${owner}/${repository}/pulls/${number}/comments`)
+        .query({access_token: token})
+        .end((err, res) => {
+          if (res.ok) {
+            resolve(res.body)
+          } else {
+            reject(err)
+          }
+        })
+    })
   }
 
-  static getIssueComments (parameters, callback) {
+  static getIssueComments (parameters) {
     this.validate(parameters)
     if (parameters.number === undefined) {
       throw new Error('number is required')
@@ -57,18 +61,20 @@ export default class PullRequestApi extends BaseApi {
     let owner = parameters.owner
     let repository = parameters.repository
     let number = parameters.number
-    SuperAgent.get(`https://api.github.com/repos/${owner}/${repository}/issues/${number}/comments`)
-      .query({access_token: token})
-      .end((err, res) => {
-        if (res.ok) {
-          callback(res.body)
-        } else {
-          throw new Error(err)
-        }
-      })
+    return new Promise((resolve, reject) => {
+      SuperAgent.get(`https://api.github.com/repos/${owner}/${repository}/issues/${number}/comments`)
+        .query({access_token: token})
+        .end((err, res) => {
+          if (res.ok) {
+            resolve(res.body)
+          } else {
+            reject(err)
+          }
+        })
+    })
   }
 
-  static getCommits (parameters, callback) {
+  static getCommits (parameters) {
     this.validate(parameters)
     if (parameters.number === undefined) {
       throw new Error('number is required')
@@ -77,14 +83,16 @@ export default class PullRequestApi extends BaseApi {
     let owner = parameters.owner
     let repository = parameters.repository
     let number = parameters.number
-    SuperAgent.get(`https://api.github.com/repos/${owner}/${repository}/pulls/${number}/commits`)
-      .query({access_token: token})
-      .end((err, res) => {
-        if (res.ok) {
-          callback(res.body)
-        } else {
-          throw new Error(err)
-        }
-      })
+    return new Promise((resolve, reject) => {
+      SuperAgent.get(`https://api.github.com/repos/${owner}/${repository}/pulls/${number}/commits`)
+        .query({access_token: token})
+        .end((err, res) => {
+          if (res.ok) {
+            resolve(res.body)
+          } else {
+            reject(err)
+          }
+        })
+    })
   }
 }
