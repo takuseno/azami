@@ -3,8 +3,7 @@ import AppActions from '../actions/AppActions'
 
 export default class RepositorySelector extends React.Component {
   changeListener (e) {
-    let index = e.target.value
-    AppActions.changeRepository(index)
+    AppActions.changeRepository(e.target.value)
   }
 
   render () {

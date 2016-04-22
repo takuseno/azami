@@ -10,9 +10,9 @@ export default class PullRequestList extends React.Component {
           <strong>{title}</strong>
         </li>
         {pullRequests.map((pullRequest) => {
-          let id = pullRequest.id
-          let number = pullRequest.number
-          let title = pullRequest.title
+          const id = pullRequest.id
+          const number = pullRequest.number
+          const title = pullRequest.title
           let iconType = 'icon-dot'
           if (this.hasNewCommits(pullRequest)) {
             iconType = 'icon-plus'
@@ -30,10 +30,10 @@ export default class PullRequestList extends React.Component {
   }
 
   clickListener (pullRequest) {
-    let owner = pullRequest.owner
-    let name = pullRequest.name
-    let number = pullRequest.number
-    let url = `https://github.com/${owner}/${name}/pull/${number}`
+    const owner = pullRequest.owner
+    const name = pullRequest.name
+    const number = pullRequest.number
+    const url = `https://github.com/${owner}/${name}/pull/${number}`
     Shell.openExternal(url)
   }
 
@@ -50,9 +50,9 @@ export default class PullRequestList extends React.Component {
   }
 
   hasNewCommits (pullRequest) {
-    let latestComment = Immutable.Seq(pullRequest.comments)
+    const latestComment = Immutable.Seq(pullRequest.comments)
       .maxBy((comment) => comment.date)
-    let latestIssueComment = Immutable.Seq(pullRequest.issueComments)
+    const latestIssueComment = Immutable.Seq(pullRequest.issueComments)
       .maxBy((issueComment) => issueComment.date)
     return !Immutable.Seq(pullRequest.commits)
       .filter((commit) => {
@@ -73,20 +73,21 @@ export default class PullRequestList extends React.Component {
   }
 
   render () {
-    let pullRequests = this.props.pullRequests
-    let user = this.props.user
-    let yours = Immutable.Seq(pullRequests)
+    const pullRequests = this.props.pullRequests
+    const user = this.props.user
+
+    const yours = Immutable.Seq(pullRequests)
       .filter((pullRequest) => user === pullRequest.user)
       .toArray()
 
-    let reviewedByYou = Immutable.Seq(pullRequests)
+    const reviewedByYou = Immutable.Seq(pullRequests)
       .filter((pullRequest) => user !== pullRequest.user)
       .filter((pullRequest) => {
         return this.hasUserComments(pullRequest, user) || this.hasUserIssueComments(pullRequest, user)
       })
       .toArray()
 
-    let notReviewed = Immutable.Seq(this.props.pullRequests)
+    const notReviewed = Immutable.Seq(this.props.pullRequests)
       .filter((pullRequest) => user !== pullRequest.user)
       .filter((pullRequest) => pullRequest.comments.length === 0)
       .filter((pullRequest) => {

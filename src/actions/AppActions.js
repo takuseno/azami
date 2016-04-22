@@ -4,7 +4,7 @@ import GitHubApiUtils from '../utils/GitHubApiUtils'
 import GlobalStore from '../stores/GlobalStore'
 import RepositoryStore from '../stores/RepositoryStore'
 
-let actions = {
+const actions = {
   loadRepositories: (token) => {
     GitHubApiUtils.loadRepositories(token)
   },
@@ -21,8 +21,8 @@ let actions = {
       actionType: AppConstants.CHANGE_REPOSITORY,
       index: index
     })
-    let token = GlobalStore.getAll().token
-    let repository = RepositoryStore.getAll()[index]
+    const token = GlobalStore.getAll().token
+    const repository = RepositoryStore.getAll()[index]
     GitHubApiUtils.loadPullRequests(token, repository)
   },
 

@@ -29,9 +29,9 @@ class PullRequestStore extends EventEmitter {
 
 let pullRequestStore = new PullRequestStore()
 pullRequestStore.dispatchToken = AppDispatcher.register((action) => {
-  let globalStore = GlobalStore.getAll()
-  let token = globalStore.preference.token
-  let activeRepositoryIndex = globalStore.activeRepositoryIndex
+  const globalStore = GlobalStore.getAll()
+  const token = globalStore.preference.token
+  const activeRepositoryIndex = globalStore.activeRepositoryIndex
 
   switch (action.actionType) {
     case AppConstants.LOAD_REPOSITORIES_COMPLETED:
@@ -53,19 +53,19 @@ pullRequestStore.dispatchToken = AppDispatcher.register((action) => {
       break
 
     case AppConstants.LOAD_COMMENTS_COMPLETED:
-      let comments = action.comments
+      const comments = action.comments
       action.pullRequest.comments = comments
       pullRequestStore.emitChange()
       break
 
     case AppConstants.LOAD_ISSUE_COMMENTS_COMPLETED:
-      let issueComments = action.issueComments
+      const issueComments = action.issueComments
       action.pullRequest.issueComments = issueComments
       pullRequestStore.emitChange()
       break
 
     case AppConstants.LOAD_COMMITS_COMPLETED:
-      let commits = action.commits
+      const commits = action.commits
       action.pullRequest.commits = commits
       pullRequestStore.emitChange()
       break

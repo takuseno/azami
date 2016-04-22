@@ -14,9 +14,9 @@ export default class PullRequestApi extends BaseApi {
 
   static getAll (parameters) {
     this.validate(parameters)
-    let token = parameters.token
-    let owner = parameters.owner
-    let repository = parameters.repository
+    const token = parameters.token
+    const owner = parameters.owner
+    const repository = parameters.repository
     return new Promise((resolve, reject) => {
       SuperAgent.get(`https://api.github.com/repos/${owner}/${repository}/pulls`)
         .query({access_token: token})
@@ -35,10 +35,10 @@ export default class PullRequestApi extends BaseApi {
     if (parameters.number === undefined) {
       throw new Error('number is required')
     }
-    let token = parameters.token
-    let owner = parameters.owner
-    let repository = parameters.repository
-    let number = parameters.number
+    const token = parameters.token
+    const owner = parameters.owner
+    const repository = parameters.repository
+    const number = parameters.number
     return new Promise((resolve, reject) => {
       SuperAgent.get(`https://api.github.com/repos/${owner}/${repository}/pulls/${number}/comments`)
         .query({access_token: token})
@@ -57,10 +57,10 @@ export default class PullRequestApi extends BaseApi {
     if (parameters.number === undefined) {
       throw new Error('number is required')
     }
-    let token = parameters.token
-    let owner = parameters.owner
-    let repository = parameters.repository
-    let number = parameters.number
+    const token = parameters.token
+    const owner = parameters.owner
+    const repository = parameters.repository
+    const number = parameters.number
     return new Promise((resolve, reject) => {
       SuperAgent.get(`https://api.github.com/repos/${owner}/${repository}/issues/${number}/comments`)
         .query({access_token: token})
@@ -79,10 +79,10 @@ export default class PullRequestApi extends BaseApi {
     if (parameters.number === undefined) {
       throw new Error('number is required')
     }
-    let token = parameters.token
-    let owner = parameters.owner
-    let repository = parameters.repository
-    let number = parameters.number
+    const token = parameters.token
+    const owner = parameters.owner
+    const repository = parameters.repository
+    const number = parameters.number
     return new Promise((resolve, reject) => {
       SuperAgent.get(`https://api.github.com/repos/${owner}/${repository}/pulls/${number}/commits`)
         .query({access_token: token})
