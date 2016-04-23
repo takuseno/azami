@@ -12,17 +12,23 @@ export default class PullRequestApi extends BaseApi {
     }
   }
 
-  static getAll (parameters) {
+  static getAll (parameters, overrideUrl) {
     this.validate(parameters)
     const token = parameters.token
     const owner = parameters.owner
     const repository = parameters.repository
+    let url = `https://api.github.com/repos/${owner}/${repository}/pulls`
+    if (overrideUrl !== undefined) {
+      url = overrideUrl
+    }
     return new Promise((resolve, reject) => {
-      SuperAgent.get(`https://api.github.com/repos/${owner}/${repository}/pulls`)
+      SuperAgent.get(url)
         .query({access_token: token})
         .end((err, res) => {
           if (res.ok) {
-            resolve(res.body)
+            const data = res.body
+            const nextUrl = res.links.next
+            resolve({pullRequests: data, nextUrl: nextUrl})
           } else {
             reject(err)
           }

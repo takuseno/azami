@@ -10,13 +10,22 @@ export default class GitHubApiUtils {
       token: token
     }
     try {
-      RepositoryApi.getAll(parameters)
-        .then((repositories) => {
-          const converted = Immutable.Seq(repositories)
-            .map(GitHubDataUtils.convertRawRepository)
-            .toArray()
-          AppActions.loadRepositoriesCompleted(converted)
-        })
+      let repositories = []
+      Promise.resolve(undefined).then(function loop (url) {
+        RepositoryApi.getAll(parameters, url)
+          .then((result) => {
+            const converted = Immutable.Seq(result.repositories)
+              .map(GitHubDataUtils.convertRawRepository)
+              .toArray()
+            repositories = repositories.concat(converted)
+            const nextUrl = result.nextUrl
+            if (nextUrl === undefined) {
+              AppActions.loadRepositoriesCompleted(repositories)
+            } else {
+              loop(nextUrl)
+            }
+          })
+      })
     } catch (e) {
       AppActions.error(e)
     }
@@ -29,13 +38,22 @@ export default class GitHubApiUtils {
       repository: repository.name
     }
     try {
-      PullRequestApi.getAll(parameters)
-        .then((pullRequests) => {
-          const converted = Immutable.Seq(pullRequests)
-            .map(GitHubDataUtils.convertRawPullRequest)
-            .toArray()
-          AppActions.loadPullRequestsCompleted(converted)
-        })
+      let pullRequests = []
+      Promise.resolve(undefined).then(function loop (url) {
+        PullRequestApi.getAll(parameters, url)
+          .then((result) => {
+            const converted = Immutable.Seq(result.pullRequests)
+              .map(GitHubDataUtils.convertRawPullRequest)
+              .toArray()
+            pullRequests = pullRequests.concat(converted)
+            const nextUrl = result.nextUrl
+            if (nextUrl === undefined) {
+              AppActions.loadPullRequestsCompleted(pullRequests)
+            } else {
+              loop(nextUrl)
+            }
+          })
+      })
     } catch (e) {
       AppActions.error(e)
     }
