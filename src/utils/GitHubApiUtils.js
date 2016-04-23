@@ -10,13 +10,23 @@ export default class GitHubApiUtils {
       token: token
     }
     try {
-      RepositoryApi.getAll(parameters)
-        .then((repositories) => {
-          const converted = Immutable.Seq(repositories)
-            .map(GitHubDataUtils.convertRawRepository)
-            .toArray()
-          AppActions.loadRepositoriesCompleted(converted)
-        })
+      let repositories = []
+      Promise.resolve(undefined).then(function loop (url) {
+        RepositoryApi.getAll(parameters, url)
+          .then((result) => {
+            const converted = Immutable.Seq(result.repositories)
+              .map(GitHubDataUtils.convertRawRepository)
+              .toArray()
+            repositories = repositories.concat(converted)
+            console.log(result.nextUrl)
+            const nextUrl = result.nextUrl
+            if (nextUrl === undefined) {
+              AppActions.loadRepositoriesCompleted(repositories)
+            } else {
+              loop(nextUrl)
+            }
+          })
+      })
     } catch (e) {
       AppActions.error(e)
     }
