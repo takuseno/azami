@@ -1,0 +1,6 @@
+{
+  "name": "azami",
+  "tagline": "Simple GitHub Pull Request Manager Powered By Electron",
+  "body": "### Simple Pull Request Manager Powered By Electron\r\n\r\n**azami** organizes pull requests at your team.\r\n\r\n### Features\r\n- Organize pull requests\r\n- Check pull requests status intuitively\r\n\r\nI continue to develop new features!",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
