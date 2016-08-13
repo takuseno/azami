@@ -1,9 +1,36 @@
-var app = require('app')
-var BrowserWindow = require('browser-window')
+const {app, Menu} = require('electron')
+const BrowserWindow = require('browser-window')
 
 require('crash-reporter').start()
 
 var mainWindow = null
+
+const menuTemplate = [
+  {
+    label: 'azami',
+    submenu: [
+      {
+        label: 'About',
+        role: 'about'
+      },
+      {
+        type: 'separator'
+      },
+      {
+        label: 'Services',
+        role: 'services',
+        submenu: []
+      },
+      {
+        type: 'separator'
+      },
+      {
+        label: 'Quit',
+        role: 'quit'
+      }
+    ]
+  }
+]
 
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') {
@@ -16,6 +43,9 @@ app.on('ready', function () {
     width: 400,
     height: 600
   })
+
+  const menu = Menu.buildFromTemplate(menuTemplate)
+  Menu.setApplicationMenu(menu)
 
   mainWindow.loadURL(['file://', __dirname, '/index.html'].join(''))
 
