@@ -14,6 +14,12 @@ const menuTemplate = [
         role: 'about'
       },
       {
+        label: 'Preferences',
+        click (item, focusedWindow) {
+          focusedWindow.webContents.send('clickPreference', 'clicked')
+        }
+      },
+      {
         type: 'separator'
       },
       {
@@ -27,6 +33,19 @@ const menuTemplate = [
       {
         label: 'Quit',
         role: 'quit'
+      }
+    ]
+  },
+  {
+    label: 'Dev',
+    submenu: [
+      {
+        label: 'Toggle Developer Tools',
+        click (item, focusedWindow) {
+          if (focusedWindow) {
+            focusedWindow.webContents.toggleDevTools()
+          }
+        }
       }
     ]
   }

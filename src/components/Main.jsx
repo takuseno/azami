@@ -2,12 +2,12 @@ import * as React from 'react'
 import * as Storage from 'electron-json-storage'
 import RepositorySelector from './RepositorySelector'
 import PullRequestList from './PullRequestList'
-import Header from './Header'
 import GlobalStore from '../stores/GlobalStore'
 import RepositoryStore from '../stores/RepositoryStore'
 import PullRequestStore from '../stores/PullRequestStore'
 import AppActions from '../actions/AppActions'
 import Preference from './Preference'
+import * as ipc from '../ipc'
 
 export default class Main extends React.Component {
   constructor (props) {
@@ -30,6 +30,8 @@ export default class Main extends React.Component {
         pullRequests: PullRequestStore.getAll()
       })
     })
+
+    ipc.initialize()
 
     this.state = {
       global: GlobalStore.getAll(),
@@ -59,7 +61,6 @@ export default class Main extends React.Component {
       <div className='window'>
         <div className='window-content'>
           <div className='pane-group'>
-            <Header/>
             <div className='pane'>
               {currentDisplay === 'main'
                 ? <div className='main'>
