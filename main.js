@@ -1,4 +1,4 @@
-const {app, Menu, ipcMain} = require('electron')
+const {app, Menu} = require('electron')
 const BrowserWindow = require('browser-window')
 
 require('crash-reporter').start()
