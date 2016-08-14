@@ -42,6 +42,11 @@ export default class Preference extends React.Component {
     return (
       <div className='preference'>
         <div className='form-group'>
+          <button className='btn btn-default pull-right' onClick={() => AppActions.clickPreferenceButton()}>
+            <span className='icon icon-left-bold'></span>Back
+          </button>
+        </div>
+        <div className='form-group'>
           <label>API Token</label>
           <input id='token' className='form-control' value={token} onChange={this.changeListener.bind(this)}/>
         </div>

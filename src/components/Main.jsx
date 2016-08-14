@@ -8,6 +8,7 @@ import RepositoryStore from '../stores/RepositoryStore'
 import PullRequestStore from '../stores/PullRequestStore'
 import AppActions from '../actions/AppActions'
 import Preference from './Preference'
+import * as ipc from '../ipc'
 
 export default class Main extends React.Component {
   constructor (props) {
@@ -30,6 +31,8 @@ export default class Main extends React.Component {
         pullRequests: PullRequestStore.getAll()
       })
     })
+
+    ipc.initialize()
 
     this.state = {
       global: GlobalStore.getAll(),
@@ -59,7 +62,6 @@ export default class Main extends React.Component {
       <div className='window'>
         <div className='window-content'>
           <div className='pane-group'>
-            <Header/>
             <div className='pane'>
               {currentDisplay === 'main'
                 ? <div className='main'>
