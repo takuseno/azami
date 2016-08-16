@@ -8,7 +8,6 @@ export default class UserApi extends BaseApi {
       throw new Error('user is required')
     }
     const token = parameters.token
-    const user = parameters.user
     const url = 'https://api.github.com/user/orgs'
     return new Promise((resolve, reject) => {
       SuperAgent.get(url)
