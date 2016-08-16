@@ -10,8 +10,8 @@ export default class GitHubDataUtils {
   static convertRawPullRequest (pullRequest) {
     return {
       id: pullRequest.id,
-      owner: pullRequest.head.repo.owner.login,
-      name: pullRequest.head.repo.name,
+      owner: pullRequest.base.repo.owner.login,
+      name: pullRequest.base.repo.name,
       number: pullRequest.number,
       title: pullRequest.title,
       state: pullRequest.state,
