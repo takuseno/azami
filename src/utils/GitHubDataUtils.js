@@ -49,4 +49,12 @@ export default class GitHubDataUtils {
       date: commit.commit.committer.date
     }
   }
+
+  static convertRawOrganization (organization) {
+    return {
+      id: organization.id,
+      name: organization.login,
+      avatorUrl: organization.avator_url
+    }
+  }
 }

@@ -3,16 +3,45 @@ import AppActions from '../actions/AppActions'
 import GitHubDataUtils from './GitHubDataUtils'
 import RepositoryApi from '../api/RepositoryApi'
 import PullRequestApi from '../api/PullRequestApi'
+import UserApi from '../api/UserApi'
 
 export default class GitHubApiUtils {
-  static loadRepositories (token) {
+  static loadUserRepos (token, user) {
     const parameters = {
-      token: token
+      token: token,
+      user: user
     }
     try {
       let repositories = []
       Promise.resolve(undefined).then(function loop (url) {
-        RepositoryApi.getAll(parameters, url)
+        RepositoryApi.getUserRepos(parameters, url)
+          .then((result) => {
+            const converted = Immutable.Seq(result.repositories)
+              .map(GitHubDataUtils.convertRawRepository)
+              .toArray()
+            repositories = repositories.concat(converted)
+            const nextUrl = result.nextUrl
+            if (nextUrl === undefined) {
+              AppActions.loadRepositoriesCompleted(repositories)
+            } else {
+              loop(nextUrl)
+            }
+          })
+      })
+    } catch (e) {
+      AppActions.error(e)
+    }
+  }
+
+  static loadOrganizationRepos (token, organization) {
+    const parameters = {
+      token: token,
+      organization: organization
+    }
+    try {
+      let repositories = []
+      Promise.resolve(undefined).then(function loop (url) {
+        RepositoryApi.getOrganizationRepos(parameters, url)
           .then((result) => {
             const converted = Immutable.Seq(result.repositories)
               .map(GitHubDataUtils.convertRawRepository)
@@ -113,6 +142,24 @@ export default class GitHubApiUtils {
             .map(GitHubDataUtils.convertRawCommit)
             .toArray()
           AppActions.loadCommitsCompleted(pullRequest, converted)
+        })
+    } catch (e) {
+      AppActions.error(e)
+    }
+  }
+
+  static loadOrganizations (token, user) {
+    const parameters = {
+      token: token,
+      user: user
+    }
+    try {
+      UserApi.getOrganizations(parameters)
+        .then((organizations) => {
+          const converted = Immutable.Seq(organizations)
+            .map(GitHubDataUtils.convertRawOrganization)
+            .toArray()
+          AppActions.loadOrganizationsCompleted(converted)
         })
     } catch (e) {
       AppActions.error(e)

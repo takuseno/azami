@@ -1,12 +1,14 @@
 import AppConstants from '../constants/AppConstants'
 import AppDispatcher from '../dispatcher/AppDispatcher'
 import GitHubApiUtils from '../utils/GitHubApiUtils'
-import GlobalStore from '../stores/GlobalStore'
-import RepositoryStore from '../stores/RepositoryStore'
 
 const actions = {
-  loadRepositories: (token) => {
-    GitHubApiUtils.loadRepositories(token)
+  loadUserRepos: (token, user) => {
+    GitHubApiUtils.loadUserRepos(token, user)
+  },
+
+  loadOrganizationRepos: (token, organization) => {
+    GitHubApiUtils.loadOrganizationRepos(token, organization)
   },
 
   loadRepositoriesCompleted: (repositories) => {
@@ -21,9 +23,13 @@ const actions = {
       actionType: AppConstants.CHANGE_REPOSITORY,
       index: index
     })
-    const token = GlobalStore.getAll().token
-    const repository = RepositoryStore.getAll()[index]
-    GitHubApiUtils.loadPullRequests(token, repository)
+  },
+
+  changeOrganization: (index) => {
+    AppDispatcher.dispatch({
+      actionType: AppConstants.CHANGE_ORGANIZATION,
+      index: index
+    })
   },
 
   loadPullRequests: (token, repository) => {
@@ -70,6 +76,17 @@ const actions = {
       actionType: AppConstants.LOAD_COMMITS_COMPLETED,
       pullRequest: pullRequest,
       commits: commits
+    })
+  },
+
+  loadOrganizations: (token, user) => {
+    GitHubApiUtils.loadOrganizations(token, user)
+  },
+
+  loadOrganizationsCompleted: (organizations) => {
+    AppDispatcher.dispatch({
+      actionType: AppConstants.LOAD_ORGANIZATIONS_COMPLETED,
+      organizations: organizations
     })
   },
 
