@@ -38,17 +38,21 @@ pullRequestStore.dispatchToken = AppDispatcher.register((action) => {
       AppDispatcher.waitFor([RepositroyStore.dispatchToken])
       store = []
       pullRequestStore.emitChange()
-      let repository = RepositroyStore.getAll()[activeRepositoryIndex]
-      AppActions.loadPullRequests(token, repository)
+      const repository = RepositroyStore.getAll()[0]
+      setTimeout(() => {
+        AppActions.loadPullRequests(token, repository)
+      }, 0)
       break
 
-    case AppConstants.LOAD_PULL_REQUEST_COMPLETED:
+    case AppConstants.LOAD_PULL_REQUESTS_COMPLETED:
       store = action.pullRequests
       pullRequestStore.emitChange()
       for (let pullRequest of store) {
-        AppActions.loadComments(token, pullRequest)
-        AppActions.loadIssueComments(token, pullRequest)
-        AppActions.loadCommits(token, pullRequest)
+        setTimeout(() => {
+          AppActions.loadComments(token, pullRequest)
+          AppActions.loadIssueComments(token, pullRequest)
+          AppActions.loadCommits(token, pullRequest)
+        }, 0)
       }
       break
 

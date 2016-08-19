@@ -4,10 +4,20 @@ import GitHubApiUtils from '../utils/GitHubApiUtils'
 
 const actions = {
   loadUserRepos: (token, user) => {
+    AppDispatcher.dispatch({
+      actionType: AppConstants.LOAD_REPOSITORIES,
+      token: token,
+      user: user
+    })
     GitHubApiUtils.loadUserRepos(token, user)
   },
 
   loadOrganizationRepos: (token, organization) => {
+    AppDispatcher.dispatch({
+      actionType: AppConstants.LOAD_REPOSITORIES,
+      token: token,
+      user: organization
+    })
     GitHubApiUtils.loadOrganizationRepos(token, organization)
   },
 
@@ -33,17 +43,27 @@ const actions = {
   },
 
   loadPullRequests: (token, repository) => {
+    AppDispatcher.dispatch({
+      actionType: AppConstants.LOAD_PULL_REQUESTS,
+      token: token,
+      repository: repository
+    })
     GitHubApiUtils.loadPullRequests(token, repository)
   },
 
   loadPullRequestsCompleted: (pullRequests) => {
     AppDispatcher.dispatch({
-      actionType: AppConstants.LOAD_PULL_REQUEST_COMPLETED,
+      actionType: AppConstants.LOAD_PULL_REQUESTS_COMPLETED,
       pullRequests: pullRequests
     })
   },
 
   loadComments: (token, pullRequest) => {
+    AppDispatcher.dispatch({
+      actionType: AppConstants.LOAD_COMMENTS,
+      token: token,
+      pullRequest: pullRequest,
+    })
     GitHubApiUtils.loadComments(token, pullRequest)
   },
 
@@ -56,6 +76,11 @@ const actions = {
   },
 
   loadIssueComments: (token, pullRequest) => {
+    AppDispatcher.dispatch({
+      actionType: AppConstants.LOAD_ISSUE_COMMENTS,
+      token: token,
+      pullRequest: pullRequest,
+    })
     GitHubApiUtils.loadIssueComments(token, pullRequest)
   },
 
@@ -68,6 +93,11 @@ const actions = {
   },
 
   loadCommits: (token, pullRequest) => {
+    AppDispatcher.dispatch({
+      actionType: AppConstants.LOAD_COMMITS,
+      token: token,
+      pullRequest: pullRequest
+    })
     GitHubApiUtils.loadCommits(token, pullRequest)
   },
 
@@ -80,6 +110,10 @@ const actions = {
   },
 
   loadOrganizations: (token, user) => {
+    AppDispatcher.dispatch({
+      actionType: AppConstants.LOAD_ORGANIZATIONS,
+      user: user
+    })
     GitHubApiUtils.loadOrganizations(token, user)
   },
 

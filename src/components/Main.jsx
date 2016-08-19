@@ -3,6 +3,7 @@ import * as Storage from 'electron-json-storage'
 import OrganizationSelector from './OrganizationSelector'
 import RepositorySelector from './RepositorySelector'
 import PullRequestList from './PullRequestList'
+import LoadingBackground from './LoadingBackground'
 import GlobalStore from '../stores/GlobalStore'
 import RepositoryStore from '../stores/RepositoryStore'
 import PullRequestStore from '../stores/PullRequestStore'
@@ -68,6 +69,7 @@ export default class Main extends React.Component {
     const global = state.global
     const checkedOrg = global.activeOrganizationIndex
     const checkedIndex = global.activeRepositoryIndex
+    const loadingCount = global.activeLoadingCount
     const user = global.preference.user
     const currentDisplay = global.currentDisplay
     return (
@@ -86,6 +88,7 @@ export default class Main extends React.Component {
             </div>
           </div>
         </div>
+        <LoadingBackground isShowed={loadingCount !== 0}/>
       </div>
     )
   }
