@@ -62,7 +62,7 @@ const actions = {
     AppDispatcher.dispatch({
       actionType: AppConstants.LOAD_COMMENTS,
       token: token,
-      pullRequest: pullRequest,
+      pullRequest: pullRequest
     })
     GitHubApiUtils.loadComments(token, pullRequest)
   },
@@ -79,7 +79,7 @@ const actions = {
     AppDispatcher.dispatch({
       actionType: AppConstants.LOAD_ISSUE_COMMENTS,
       token: token,
-      pullRequest: pullRequest,
+      pullRequest: pullRequest
     })
     GitHubApiUtils.loadIssueComments(token, pullRequest)
   },

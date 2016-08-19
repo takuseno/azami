@@ -31,7 +31,6 @@ let pullRequestStore = new PullRequestStore()
 pullRequestStore.dispatchToken = AppDispatcher.register((action) => {
   const globalStore = GlobalStore.getAll()
   const token = globalStore.preference.token
-  const activeRepositoryIndex = globalStore.activeRepositoryIndex
 
   switch (action.actionType) {
     case AppConstants.LOAD_REPOSITORIES_COMPLETED:

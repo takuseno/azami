@@ -82,8 +82,6 @@ globalStore.dispatchToken = AppDispatcher.register((action) => {
       break
 
     case AppConstants.LOAD_REPOSITORIES_COMPLETED:
-      store.activeRepositoryIndex = 0
-
     case AppConstants.LOAD_ORGANIZATIONS_COMPLETED:
     case AppConstants.LOAD_PULL_REQUESTS_COMPLETED:
     case AppConstants.LOAD_COMMENTS_COMPLETED:
