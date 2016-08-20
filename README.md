@@ -6,16 +6,21 @@
 
 Simple Pull Request Manager powered by Electron
 
+## Stacks
+- Electron
+- React
+- flux
+- Webpack
+
 ## Coding Standard
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
 ## Build
 
 ```shell
-$ npm install -g gulp electron-prebuilt
+$ npm install -g electron-prebuilt
 $ npm install
-$ gulp compile
-$ gulp sass
+$ npm run build
 $ electron .
 ```
 
