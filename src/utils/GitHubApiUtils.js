@@ -11,26 +11,23 @@ export default class GitHubApiUtils {
       token: token,
       user: user
     }
-    try {
-      let repositories = []
-      Promise.resolve(undefined).then(function loop (url) {
-        RepositoryApi.getUserRepos(parameters, url)
-          .then((result) => {
-            const converted = Immutable.Seq(result.repositories)
-              .map(GitHubDataUtils.convertRawRepository)
-              .toArray()
-            repositories = repositories.concat(converted)
-            const nextUrl = result.nextUrl
-            if (nextUrl === undefined) {
-              AppActions.loadRepositoriesCompleted(repositories)
-            } else {
-              loop(nextUrl)
-            }
-          })
-      })
-    } catch (e) {
-      AppActions.error(e)
-    }
+    let repositories = []
+    Promise.resolve(undefined).then(function loop (url) {
+      RepositoryApi.getUserRepos(parameters, url)
+        .then((result) => {
+          const converted = Immutable.Seq(result.repositories)
+            .map(GitHubDataUtils.convertRawRepository)
+            .toArray()
+          repositories = repositories.concat(converted)
+          const nextUrl = result.nextUrl
+          if (nextUrl === undefined) {
+            AppActions.loadRepositoriesCompleted(repositories)
+          } else {
+            loop(nextUrl)
+          }
+        })
+        .catch((e) => AppActions.error({error: e, location: 'loadUserRepos'}))
+    })
   }
 
   static loadOrganizationRepos (token, organization) {
@@ -38,26 +35,23 @@ export default class GitHubApiUtils {
       token: token,
       organization: organization
     }
-    try {
-      let repositories = []
-      Promise.resolve(undefined).then(function loop (url) {
-        RepositoryApi.getOrganizationRepos(parameters, url)
-          .then((result) => {
-            const converted = Immutable.Seq(result.repositories)
-              .map(GitHubDataUtils.convertRawRepository)
-              .toArray()
-            repositories = repositories.concat(converted)
-            const nextUrl = result.nextUrl
-            if (nextUrl === undefined) {
-              AppActions.loadRepositoriesCompleted(repositories)
-            } else {
-              loop(nextUrl)
-            }
-          })
-      })
-    } catch (e) {
-      AppActions.error(e)
-    }
+    let repositories = []
+    Promise.resolve(undefined).then(function loop (url) {
+      RepositoryApi.getOrganizationRepos(parameters, url)
+        .then((result) => {
+          const converted = Immutable.Seq(result.repositories)
+            .map(GitHubDataUtils.convertRawRepository)
+            .toArray()
+          repositories = repositories.concat(converted)
+          const nextUrl = result.nextUrl
+          if (nextUrl === undefined) {
+            AppActions.loadRepositoriesCompleted(repositories)
+          } else {
+            loop(nextUrl)
+          }
+        })
+        .catch((e) => AppActions.error({error: e, location: 'loadOrganizationRepos'}))
+    })
   }
 
   static loadPullRequests (token, repository) {
@@ -66,26 +60,23 @@ export default class GitHubApiUtils {
       owner: repository.owner,
       repository: repository.name
     }
-    try {
-      let pullRequests = []
-      Promise.resolve(undefined).then(function loop (url) {
-        PullRequestApi.getAll(parameters, url)
-          .then((result) => {
-            const converted = Immutable.Seq(result.pullRequests)
-              .map(GitHubDataUtils.convertRawPullRequest)
-              .toArray()
-            pullRequests = pullRequests.concat(converted)
-            const nextUrl = result.nextUrl
-            if (nextUrl === undefined) {
-              AppActions.loadPullRequestsCompleted(pullRequests)
-            } else {
-              loop(nextUrl)
-            }
-          })
-      })
-    } catch (e) {
-      AppActions.error(e)
-    }
+    let pullRequests = []
+    Promise.resolve(undefined).then(function loop (url) {
+      PullRequestApi.getAll(parameters, url)
+        .then((result) => {
+          const converted = Immutable.Seq(result.pullRequests)
+            .map(GitHubDataUtils.convertRawPullRequest)
+            .toArray()
+          pullRequests = pullRequests.concat(converted)
+          const nextUrl = result.nextUrl
+          if (nextUrl === undefined) {
+            AppActions.loadPullRequestsCompleted(pullRequests)
+          } else {
+            loop(nextUrl)
+          }
+        })
+        .catch((e) => AppActions.error({error: e, location: 'loadPullRequests'}))
+    })
   }
 
   static loadComments (token, pullRequest) {
@@ -95,17 +86,14 @@ export default class GitHubApiUtils {
       repository: pullRequest.name,
       number: pullRequest.number
     }
-    try {
-      PullRequestApi.getComments(parameters)
-        .then((comments) => {
-          const converted = Immutable.Seq(comments)
-            .map(GitHubDataUtils.convertRawComment)
-            .toArray()
-          AppActions.loadCommentsCompleted(pullRequest, converted)
-        })
-    } catch (e) {
-      AppActions.error(e)
-    }
+    PullRequestApi.getComments(parameters)
+      .then((comments) => {
+        const converted = Immutable.Seq(comments)
+          .map(GitHubDataUtils.convertRawComment)
+          .toArray()
+        AppActions.loadCommentsCompleted(pullRequest, converted)
+      })
+      .catch((e) => AppActions.error({error: e, location: 'loadComments'}))
   }
 
   static loadIssueComments (token, pullRequest) {
@@ -115,17 +103,14 @@ export default class GitHubApiUtils {
       repository: pullRequest.name,
       number: pullRequest.number
     }
-    try {
-      PullRequestApi.getIssueComments(parameters)
-        .then((comments) => {
-          const converted = Immutable.Seq(comments)
-            .map(GitHubDataUtils.convertRawIssueComment)
-            .toArray()
-          AppActions.loadIssueCommentsCompleted(pullRequest, converted)
-        })
-    } catch (e) {
-      AppActions.error(e)
-    }
+    PullRequestApi.getIssueComments(parameters)
+      .then((comments) => {
+        const converted = Immutable.Seq(comments)
+          .map(GitHubDataUtils.convertRawIssueComment)
+          .toArray()
+        AppActions.loadIssueCommentsCompleted(pullRequest, converted)
+      })
+      .catch((e) => AppActions.error({error: e, location: 'loadIssueComments'}))
   }
 
   static loadCommits (token, pullRequest) {
@@ -135,17 +120,14 @@ export default class GitHubApiUtils {
       repository: pullRequest.name,
       number: pullRequest.number
     }
-    try {
-      PullRequestApi.getCommits(parameters)
-        .then((commits) => {
-          const converted = Immutable.Seq(commits)
-            .map(GitHubDataUtils.convertRawCommit)
-            .toArray()
-          AppActions.loadCommitsCompleted(pullRequest, converted)
-        })
-    } catch (e) {
-      AppActions.error(e)
-    }
+    PullRequestApi.getCommits(parameters)
+      .then((commits) => {
+        const converted = Immutable.Seq(commits)
+          .map(GitHubDataUtils.convertRawCommit)
+          .toArray()
+        AppActions.loadCommitsCompleted(pullRequest, converted)
+      })
+      .catch((e) => AppActions.error({error: e, location: 'loadCommits'}))
   }
 
   static loadOrganizations (token, user) {
@@ -153,16 +135,13 @@ export default class GitHubApiUtils {
       token: token,
       user: user
     }
-    try {
-      UserApi.getOrganizations(parameters)
-        .then((organizations) => {
-          const converted = Immutable.Seq(organizations)
-            .map(GitHubDataUtils.convertRawOrganization)
-            .toArray()
-          AppActions.loadOrganizationsCompleted(converted)
-        })
-    } catch (e) {
-      AppActions.error(e)
-    }
+    UserApi.getOrganizations(parameters)
+      .then((organizations) => {
+        const converted = Immutable.Seq(organizations)
+          .map(GitHubDataUtils.convertRawOrganization)
+          .toArray()
+        AppActions.loadOrganizationsCompleted(converted)
+      })
+      .catch((e) => AppActions.error({error: e, location: 'loadOrganizations'}))
   }
 }
