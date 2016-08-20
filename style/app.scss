@@ -1,4 +1,9 @@
 @import "colors";
+@import "loading";
+
+.hidden {
+  display: none;
+}
 
 .header {
   margin: 6px !important;

@@ -38,7 +38,9 @@ organizationStore.dispatchToken = AppDispatcher.register((action) => {
       })
       organizationStore.emitChange()
       const preference = GlobalStore.getAll().preference
-      AppActions.loadUserRepos(preference.token, preference.user)
+      setTimeout(() => {
+        AppActions.loadUserRepos(preference.token, preference.user)
+      }, 0)
       break
   }
 })
