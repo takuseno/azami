@@ -73,21 +73,15 @@ export default class Main extends React.Component {
     const user = global.preference.user
     const currentDisplay = global.currentDisplay
     return (
-      <div className='window'>
-        <div className='window-content'>
-          <div className='pane-group'>
-            <div className='pane'>
-              {currentDisplay === 'main'
-                ? <div className='main'>
-                  <OrganizationSelector organizations={organizations} checkedValue={checkedOrg} user={user}/>
-                  <RepositorySelector repositories={repositories} checkedValue={checkedIndex}/>
-                  <PullRequestList pullRequests={pullRequests} user={user}/>
-                </div>
-                : <Preference/>
-              }
-            </div>
+      <div className='app'>
+        {currentDisplay === 'main'
+          ? <div className='main'>
+            <OrganizationSelector organizations={organizations} checkedValue={checkedOrg} user={user}/>
+            <RepositorySelector repositories={repositories} checkedValue={checkedIndex}/>
+            <PullRequestList pullRequests={pullRequests} user={user}/>
           </div>
-        </div>
+          : <Preference/>
+        }
         <LoadingBackground isShowed={loadingCount !== 0}/>
       </div>
     )
