@@ -3,7 +3,7 @@
 body {
   margin: 0px !important;
   font-style: normal;
-  font-family: sans-serif;
+  font-family: helvetica, arial, sans-serif;
   overflow: hidden;
   -webkit-user-select: none;
 }
@@ -26,22 +26,19 @@ body {
     }
   }
 
-  .divider {
-    color: #ecf0f1;
-    background: #2c3e50;
-    padding: 6px;
-  }
-
   .pull-requests {
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
     li {
-      font-size: 16px;
+      font-size: 14px;
       width: 100%;
       color: $background-black;
       padding: 8px;
       white-space: nowrap;
+    }
+    .list-header {
+      border-bottom: thin solid #B0BEC5;
     }
     .list-item {
       cursor: pointer;
