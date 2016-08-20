@@ -49,7 +49,7 @@ globalStore.dispatchToken = AppDispatcher.register((action) => {
       const token = store.preference.token
       const name = OrganizationStore.getAll()[index].name
       setTimeout(() => {
-        if (index === 0) {
+        if (Number(index) === 0) {
           AppActions.loadUserRepos(token, name)
         } else {
           AppActions.loadOrganizationRepos(token, name)
