@@ -96,7 +96,7 @@ export default class PullRequestList extends React.Component {
       .toArray()
 
     return (
-      <div className="pull-requests">
+      <div className='pull-requests'>
         {this.createList(yours, 'YOURS')}
         {this.createList(reviewedByYou, 'REVIEWED BY YOU')}
         {this.createList(notReviewed, 'NOT REVIEWED')}

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import * as Style from '../../style/loading.scss'
+require('../../style/loading.scss')
 
 export default class LoadingBackground extends React.Component {
   render () {

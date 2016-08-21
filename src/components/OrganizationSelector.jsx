@@ -1,6 +1,6 @@
 import * as React from 'react'
 import AppActions from '../actions/AppActions'
-import * as Style from '../../style/selector.scss'
+require('../../style/selector.scss')
 
 export default class OrganizationSelector extends React.Component {
   changeListener (e) {

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as Storage from 'electron-json-storage'
 import AppActions from '../actions/AppActions'
-import * as Style from '../../style/preference.scss'
+require('../../style/preference.scss')
 
 export default class Preference extends React.Component {
   constructor (props) {
