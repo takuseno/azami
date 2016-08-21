@@ -1,5 +1,6 @@
 import * as React from 'react'
 import AppActions from '../actions/AppActions'
+import * as Style from '../../style/selector.scss'
 
 export default class OrganizationSelector extends React.Component {
   changeListener (e) {
@@ -9,7 +10,7 @@ export default class OrganizationSelector extends React.Component {
   render () {
     const organizations = this.props.organizations
     return (
-      <div className='repositories'>
+      <div className='selector'>
         <select value={this.props.checkedValue} onChange={this.changeListener.bind(this)}>
           {organizations.map((organization, index) => {
             return (

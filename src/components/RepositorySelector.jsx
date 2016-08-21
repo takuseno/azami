@@ -1,5 +1,6 @@
 import * as React from 'react'
 import AppActions from '../actions/AppActions'
+import * as Style from '../../style/selector.scss'
 
 export default class RepositorySelector extends React.Component {
   changeListener (e) {
@@ -8,7 +9,7 @@ export default class RepositorySelector extends React.Component {
 
   render () {
     return (
-      <div className='repositories'>
+      <div className='selector'>
         <select value={this.props.checkedValue} onChange={this.changeListener.bind(this)}>
           {this.props.repositories.map((repository, index) => {
             return (
