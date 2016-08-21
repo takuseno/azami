@@ -5,8 +5,8 @@ import * as Shell from 'shell'
 export default class PullRequestList extends React.Component {
   createList (pullRequests, title) {
     return (
-      <ul className='list-group'>
-        <li className='list-group-header'>
+      <ul>
+        <li className='list-header'>
           <strong>{title}</strong>
         </li>
         {pullRequests.map((pullRequest) => {
@@ -18,10 +18,8 @@ export default class PullRequestList extends React.Component {
             iconType = 'icon-plus'
           }
           return (
-            <li key={id} className='list-group-item' onClick={this.clickListener.bind(this, pullRequest)}>
-              <div className='media-body'>
-                <span className={`icon ${iconType}`}/> #{number} {title}
-              </div>
+            <li key={id} className='list-item' onClick={this.clickListener.bind(this, pullRequest)}>
+              <span className={`icon ${iconType}`}/> #{number} {title}
             </li>
           )
         })}
@@ -98,10 +96,10 @@ export default class PullRequestList extends React.Component {
       .toArray()
 
     return (
-      <div>
-        {this.createList(yours, 'Yours')}
-        {this.createList(reviewedByYou, 'Reviewed By You')}
-        {this.createList(notReviewed, 'Not Reviewed')}
+      <div className='pull-requests'>
+        {this.createList(yours, 'YOURS')}
+        {this.createList(reviewedByYou, 'REVIEWED BY YOU')}
+        {this.createList(notReviewed, 'NOT REVIEWED')}
       </div>
     )
   }

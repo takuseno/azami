@@ -1,6 +1,7 @@
 import * as React from 'react'
 import * as Storage from 'electron-json-storage'
 import AppActions from '../actions/AppActions'
+require('../../style/preference.scss')
 
 export default class Preference extends React.Component {
   constructor (props) {
@@ -42,17 +43,17 @@ export default class Preference extends React.Component {
     return (
       <div className='preference'>
         <div className='form-group'>
-          <button className='btn btn-default pull-right' onClick={() => AppActions.clickPreferenceButton()}>
+          <button onClick={() => AppActions.clickPreferenceButton()}>
             <span className='icon icon-left-bold'></span>Back
           </button>
         </div>
         <div className='form-group'>
-          <label>API Token</label>
-          <input id='token' className='form-control' value={token} onChange={this.changeListener.bind(this)}/>
+          <p>API Token</p>
+          <input id='token' value={token} onChange={this.changeListener.bind(this)}/>
         </div>
         <div className='form-group'>
-          <label>User Name</label>
-          <input id='user' className='form-control' value={user} onChange={this.changeListener.bind(this)}/>
+          <p>User Name</p>
+          <input id='user' value={user} onChange={this.changeListener.bind(this)}/>
         </div>
       </div>
     )

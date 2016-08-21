@@ -1,43 +1,54 @@
 @import "colors";
-@import "loading";
+
+body {
+  margin: 0px !important;
+  font-style: normal;
+  font-family: helvetica, arial, sans-serif;
+  overflow: hidden;
+  -webkit-user-select: none;
+}
+
+.app {
+  background: $background-white;
+  height: 100%;
+  width: 100%;
+
+  .pull-requests {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    li {
+      font-size: 14px;
+      width: 100%;
+      color: $background-black;
+      padding: 8px;
+      white-space: nowrap;
+    }
+    .list-header {
+      border-bottom: thin solid #B0BEC5;
+    }
+    .list-item {
+      cursor: pointer;
+      &:hover {
+        color: #ffffff;
+        background: #5195ce;
+      }
+    }
+  }
+}
 
 .hidden {
   display: none;
 }
 
-.header {
-  margin: 6px !important;
-}
-
 ul {
+  padding: 0 !important;
+  list-style: none;
   li {
     width: 100%;
   }
 }
 
-.list-group-item {
-  cursor: pointer;
-  &:hover {
-    color: #ffffff;
-    background: #5195ce;
-  }
-
-  .media-body {
-    cursor: pointer;
-    .icon-plus {
-      color: red;
-    }
-  }
-}
-
-.preference {
-  padding: 6px;
-}
-
 .main {
   margin-top: 6px !important;
-}
-
-.repositories {
-  margin: 6px;
 }

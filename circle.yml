@@ -5,11 +5,11 @@ machine:
 dependencies:
   override:
     - npm install
-    - npm install -g gulp standard
+    - npm install -g standard
 
 test:
   pre:
-    - gulp compile
-  
+    - npm run build
+
   override:
     - npm test
